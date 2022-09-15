@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import s from 'components/Contacts/Contacts.module.css'
 
 function Contacts ({options, onChangeInput, onHandle}){
-
+        if(!options){
+            return
+        }
     return(
         <>
         <label className={s.contactForm}>

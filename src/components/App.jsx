@@ -4,11 +4,13 @@ import Section from 'components/Section';
 import Contacts from 'components/Contacts';
 
 export function App() {
-  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem('contacts')));
+  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem('contacts'))|| []);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    console.log("второй")
+    if(!contacts){
+      return
+    }
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 

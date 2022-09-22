@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import s from 'components/Form/Form.module.css';
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux';
+import { addItems } from 'components/redux/store';
 
-function Form({ onSetApp, options }) {
+function Form({ options }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-console.log(options)
+  const dispatch = useDispatch();
+
   function handleSubmit(event) {
     event.preventDefault();
     const arr = [];
@@ -17,7 +20,7 @@ console.log(options)
       return alert(`${name}is already in contacts`);
     }
     arr.push(obj);
-    onSetApp(arr);
+    dispatch(addItems(arr))
     reset();
   }
   function handleChange(event) {
@@ -74,7 +77,6 @@ export default Form;
 
 
 Form.propTypes = {
-        onSetApp: PropTypes.func.isRequired,
         options: PropTypes.arrayOf(PropTypes.shape({
             userName: PropTypes.string.isRequired,
             id: PropTypes.string.isRequired,

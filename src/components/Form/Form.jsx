@@ -1,28 +1,25 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
 import s from 'components/Form/Form.module.css';
-import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux';
-import { addItems } from 'components/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItems } from '../redux/actions';
 
-function Form({ options }) {
+function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.persistedReducer.items)
 
   function handleSubmit(event) {
     event.preventDefault();
-    const arr = [];
-    const key = nanoid(3);
-    const obj = { userName: name, id: key, tel: number };
-    const inspect = options.some(elem => elem.userName === name);
+    const obj = { userName: name,  tel: number };
+    const inspect = contacts.some(elem => elem.userName === name);
     if (inspect) {
       return alert(`${name}is already in contacts`);
     }
-    arr.push(obj);
-    dispatch(addItems(arr))
+    dispatch(addItems(obj))
     reset();
   }
+
   function handleChange(event) {
     const inputName = event.target.name;
     const value = event.target.value.toLowerCase();
@@ -75,12 +72,3 @@ function Form({ options }) {
 }
 export default Form;
 
-
-Form.propTypes = {
-        options: PropTypes.arrayOf(PropTypes.shape({
-            userName: PropTypes.string.isRequired,
-            id: PropTypes.string.isRequired,
-            tel: PropTypes.string.isRequired})
-        )
-  
-}

@@ -1,13 +1,13 @@
 import {nanoid }from 'nanoid'
 import s from 'components/Contacts/Contacts.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeFilter, delItems } from 'components/redux/store'
+import { changeFilter, delItems } from '../redux/actions'
 
 
 function Contacts (){
     const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
-    const contacts = useSelector(state => state.items)
+    const filter = useSelector(state => state.persistedReducer.filter)
+    const contacts = useSelector(state => state.persistedReducer.items)
     const options = filter
     ?  contacts.filter(user => user.userName.includes(filter))
     : contacts;

@@ -1,39 +1,30 @@
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
+import { rootReducer } from './reducers';
+import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
-import { configureStore, createAction, createReducer } from "@reduxjs/toolkit"
-// Types
-const ADD_ITEMS = 'aad-item'
-const DEL_ITEMS = 'delete-item'
-const FILTER = 'filter'
-
-// InitialState
-const initialState = JSON.parse(localStorage.getItem('contacts'))|| []
-
-// ACTIONS
-export const addItems = createAction(ADD_ITEMS)
-export const delItems = createAction(DEL_ITEMS)
-export const changeFilter = createAction(FILTER)
-
-// Reducers
-const itemsReducer = createReducer(initialState, {
-    [addItems] : (state, action) => [...state, ...action.payload],
-    [delItems] : (state, action) =>  state.filter(item => item.userName !== action.payload)
-})
-const filterReducer = createReducer("", {
-    [changeFilter] : (state, action) => action.payload
-})
+const persistConfig = {
+    key: "contacts",
+    storage,
+    whitelist: ["items"],
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 
 // Store
 const store = configureStore({
-    reducer: {
-        items: itemsReducer,
-        filter: filterReducer
-    },
-    contacts: {
-      items: [],
-      filter: ''
-    },
-    
-})
+  reducer: {
+    persistedReducer,
+  },
+  devTools: process.env.NODE_ENV === 'development',
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
 
-export default store
+export const persistor = persistStore(store);
+export default store;

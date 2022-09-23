@@ -1,20 +1,12 @@
-import { useEffect } from 'react';
+
 import Form from 'components/Form';
 import Section from 'components/Section';
 import Contacts from 'components/Contacts';
-import { useSelector } from 'react-redux';
+
 
 
 export function App() {
-  const contacts = useSelector(state => state.items);
-
-  useEffect(() => {
-    if (!contacts) {
-      return;
-    }
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
+  
   return (
     
     <div
@@ -30,7 +22,7 @@ export function App() {
     >
       
         <Section title="Phonebook">
-          <Form options={contacts}></Form>
+          <Form></Form>
         </Section>
         <Section title="Contacts">
           <Contacts/>

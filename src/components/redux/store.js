@@ -14,9 +14,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 // Store
 const store = configureStore({
-  reducer: {
-    persistedReducer,
-  },
+  reducer: persistedReducer,
   devTools: process.env.NODE_ENV === 'development',
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

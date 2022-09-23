@@ -7,7 +7,7 @@ function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.persistedReducer.items)
+  const contacts = useSelector(state => state.items)
 
   function handleSubmit(event) {
     event.preventDefault();

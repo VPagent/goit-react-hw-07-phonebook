@@ -6,8 +6,8 @@ import { changeFilter, delItems } from '../redux/actions'
 
 function Contacts (){
     const dispatch = useDispatch()
-    const filter = useSelector(state => state.persistedReducer.filter)
-    const contacts = useSelector(state => state.persistedReducer.items)
+    const filter = useSelector(state => state.filter)
+    const contacts = useSelector(state => state.items)
     const options = filter
     ?  contacts.filter(user => user.userName.includes(filter))
     : contacts;

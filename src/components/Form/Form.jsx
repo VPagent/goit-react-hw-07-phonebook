@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import s from 'components/Form/Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItems } from '../redux/actions';
+import {addContact, getAllContacts} from '../redux/operations'
+
 
 function Form() {
   const [name, setName] = useState('');
@@ -9,14 +10,18 @@ function Form() {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.items)
 
+  useEffect(()=> {
+    dispatch(getAllContacts())
+  }, [])
+
   function handleSubmit(event) {
     event.preventDefault();
-    const obj = { userName: name,  tel: number };
-    const inspect = contacts.some(elem => elem.userName === name);
+    const obj = { "name": name,  "phone": number };
+    const inspect = contacts?.length > 0 && contacts.some(elem => elem.name === name);
     if (inspect) {
       return alert(`${name}is already in contacts`);
     }
-    dispatch(addItems(obj))
+    dispatch(addContact(obj))
     reset();
   }
 

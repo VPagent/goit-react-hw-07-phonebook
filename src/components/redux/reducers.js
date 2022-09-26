@@ -1,21 +1,36 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { addItems, delItems, changeFilter } from "./actions"
+import { changeFilter } from "./operations"
 import { combineReducers } from "redux"
-
+import {addContact, getAllContacts, deleteContacts} from './operations'
 const initialState =  []
 
 // Reducers
 export const itemsReducer = createReducer(initialState, {
-    [addItems] : (state, action) => [...state, action.payload],
-    [delItems] : (state, action) =>  state.filter(item => item.userName !== action.payload)
+    [getAllContacts] : (state, _) => state,
+    [getAllContacts.fulfilled] : (_, action) => [...action.payload],
+    [addContact] : (state, action) => [...state, action.payload],
+    [deleteContacts] : (state, _) => state
+})
+
+export const isLoadingReducer = createReducer(false, {
+    [getAllContacts.pending] : state => state=true,
+    [getAllContacts.fulfilled] : state => state=false,
+    [getAllContacts.rejected] : state => state=false,
+    [addContact.pending] : state => state=true,
+    [addContact.fulfilled] : state => state=false,
+    [addContact.rejected] : state => state=false,
+    [deleteContacts.pending] : state => state=true,
+    [deleteContacts.fulfilled] : state => state=false,
+    [deleteContacts.rejected] : state => state=false,
 })
 
 export const filterReducer = createReducer("", {
-    [changeFilter] : (state, action) => action.payload
+    [changeFilter] : (_, action) => action.payload
 })
 
 export const rootReducer = combineReducers({
     items: itemsReducer,
-    filter: filterReducer
+    filter: filterReducer,
+    isLoading: isLoadingReducer
 })
 

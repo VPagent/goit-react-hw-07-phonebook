@@ -17,6 +17,6 @@ export const postContacts = async (body) => {
 
 export const deleteContact = async (id) => {
     const response = await contactsApi.delete(`contacts/${id}`)
-    return response.data
+    return response.data 
     
 }

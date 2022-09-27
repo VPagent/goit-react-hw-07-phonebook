@@ -40,8 +40,9 @@ function Form() {
   function reset() {
     setName('');
     setNumber('');
+    
   }
-
+      
   return (
     <form className={s.form} action="" onSubmit={handleSubmit}>
       <label className={s.label}>

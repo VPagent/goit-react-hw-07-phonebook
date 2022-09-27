@@ -10,7 +10,6 @@ export function App() {
   return (
     
     <div>
-      
         <Section title="Phonebook">
           <Form></Form>
         </Section>

@@ -6,10 +6,10 @@ const initialState =  []
 
 // Reducers
 export const itemsReducer = createReducer(initialState, {
-    [getAllContacts] : (state, _) => state,
-    [getAllContacts.fulfilled] : (_, action) => [...action.payload],
-    [addContact] : (state, action) => [...state, action.payload],
-    [deleteContacts] : (state, _) => state
+    // [getAllContacts] : (state, _) => state,
+    [getAllContacts.fulfilled] : (_, action) => action.payload,
+    [addContact.fulfilled] : (state, action) => [...state, action.payload],
+    [deleteContacts.fulfilled] : (state, action) => { return state.filter(elem => elem.id !== action.payload.id)}
 })
 
 export const isLoadingReducer = createReducer(false, {

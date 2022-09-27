@@ -11,7 +11,6 @@ export const addContact = createAsyncThunk(
     async (body, {dispatch}) => {
         try{
         const contact = await postContacts(body)
-        dispatch(getAllContacts())
         return contact
         }catch(error){console.log(error.message)}
     }
@@ -21,7 +20,6 @@ export const getAllContacts = createAsyncThunk(
     async () => {
         try{
         const contacts = await getContacts()
-        console.log(contacts)
         return contacts
         }catch(error){console.log(error.message)}
     }
@@ -31,7 +29,6 @@ export const deleteContacts = createAsyncThunk(
     async (id, {dispatch}) => {
         try{
             const contact = await deleteContact(id)
-            dispatch(getAllContacts())
             return contact
         }catch(error){console.log(error.message)}
     }

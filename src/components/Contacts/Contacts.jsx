@@ -11,7 +11,6 @@ function Contacts (){
     const filter = useSelector(state => state.filter)
     const contacts = useSelector(state => state.items)
     const isLoading = useSelector(state => state.isLoading)
-    console.log(isLoading)
     const options = filter
     ?  contacts.filter(user => user.name.includes(filter))
     : contacts;

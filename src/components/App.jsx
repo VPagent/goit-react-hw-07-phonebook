@@ -9,14 +9,14 @@ export function App() {
   
   return (
     
-    <div>
+    <>
         <Section title="Phonebook">
           <Form></Form>
         </Section>
         <Section title="Contacts">
           <Contacts/>
         </Section>
-    </div>
+    </>
     
   );
 }
